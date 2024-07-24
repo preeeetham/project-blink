@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Complete BLockchain project which helps to get 0-100 information about Blinks and some insights about Actions!
+A Bockchain project which helps to get 0-100 information about Blinks and some insights about Actions!
 
 ## Getting Started
 
