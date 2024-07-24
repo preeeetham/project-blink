@@ -2,6 +2,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaEthereum } from "react-icons/fa";
 import Head from 'next/head';
+import Image from "next/image";
+
 
 export default function Home() {
   // Example code snippets
@@ -264,8 +266,13 @@ export default HomePage;
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-2xl font-bold mb-6">#How Actions API Looks</h2>
             <div className="mt-8">
-              <img src={apiImageUrl} alt="Action api code" className="w-full h-auto" />
-            </div>
+            <Image
+      src={apiImageUrl}
+      alt="Action API code"
+      width={1200}
+      height={800}
+      layout="responsive"
+    />            </div>
           </section>
 
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
@@ -281,8 +288,13 @@ export default HomePage;
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-2xl font-bold mb-6">#How Blinks GUI Actually Looks</h2>
             <div className="mt-8">
-              <img src={guiImageUrl} alt="Blink Interface" className="w-full h-auto" />
-            </div>
+            <Image
+      src={guiImageUrl}
+      alt="Blinks GUI"
+      width={1200}
+      height={800}
+      layout="responsive"
+    />            </div>
           </section>
 
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
@@ -298,7 +310,7 @@ export default HomePage;
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-2xl font-bold mb-6">Creating a Basic Blink Component</h2>
             <p className="text-lg mb-6">
-            In your pages directory, create a file named index.tsx (or index.js if you're not using TypeScript). Add the following code:
+            In your pages directory, create a file named index.tsx (or index.js if you are not using TypeScript). Add the following code:
             </p>
             <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode00}
@@ -406,7 +418,7 @@ export default HomePage;
               </p>
               <ul className="list-disc list-inside text-lg mb-6 space-y-4">
                 <li>
-                  <strong>Donations and Tips:</strong> Content creators can share a "Donate to me" Blink on Twitter. When users click the link, a donation widget appears directly in the tweet, allowing fans to tip the creator in SOL instantly.
+                  <strong>Donations and Tips:</strong> Content creators can share a DONATE TO ME Blink on Twitter. When users click the link, a donation widget appears directly in the tweet, allowing fans to tip the creator in SOL instantly.
                 </li>
                 <li>
                   <strong>NFT Minting and Governance:</strong> Blinks enable minting custom NFTs or participating in governance votes directly from URLs. For instance, a community could vote on policies via links shared in newsletters or social media posts.
@@ -422,7 +434,13 @@ export default HomePage;
             <div className="flex-1 bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg ml-4">
               <h2 className="text-2xl font-bold mb-6">#Crypto In Crypto Twitter!!</h2>
               <div className="mt-8">
-                <img src={twitterImageUrl} alt="Blink Interface" className="w-full h-auto" />
+              <Image
+      src={twitterImageUrl}
+      alt="Blink Interface"
+      width={1200}
+      height={675}
+      layout="responsive"
+    />
               </div>
             </div>
           </section>
