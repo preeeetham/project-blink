@@ -2,7 +2,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaEthereum } from "react-icons/fa";
 import Head from 'next/head';
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 
 export default function Home() {
@@ -292,7 +292,7 @@ export default HomePage;
       src={guiImageUrl}
       alt="Blinks GUI"
       width={1200}
-      height={800}
+      height={650}
       layout="responsive"
     />            </div>
           </section>
@@ -437,8 +437,8 @@ export default HomePage;
               <Image
       src={twitterImageUrl}
       alt="Blink Interface"
-      width={1200}
-      height={675}
+      width={720}
+      height={1200}
       layout="responsive"
     />
               </div>
