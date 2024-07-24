@@ -248,7 +248,7 @@ export default HomePage;
         <div className="w-full max-w-5xl">
           <header className="flex items-center justify-between p-6 bg-gray-900 bg-opacity-80 rounded-lg shadow-lg mb-8">
             <h1 className="text-4xl font-bold">
-              Get Started To Know About Blink and Actions!!
+              All You Need To Know About Blink and Actions!!
             </h1>
             <FaEthereum className="text-white text-4xl" />
           </header>
