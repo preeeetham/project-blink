@@ -1,8 +1,7 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { githubDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaEthereum } from "react-icons/fa";
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
 
 export default function Home() {
   // Example code snippets
@@ -291,7 +290,7 @@ export default HomePage;
             <p className="text-lg mb-6">
             To quickly get started with creating custom Solana Actions:
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode0}
             </SyntaxHighlighter>
           </section>
@@ -301,7 +300,7 @@ export default HomePage;
             <p className="text-lg mb-6">
             In your pages directory, create a file named index.tsx (or index.js if you're not using TypeScript). Add the following code:
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode00}
             </SyntaxHighlighter>
           </section>
@@ -311,7 +310,7 @@ export default HomePage;
             <p className="text-lg mb-6">
             First, create a new file actionAdapter.ts in your project directory. Add the following code to handle Blink actions:
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode000}
             </SyntaxHighlighter>
           </section>
@@ -321,7 +320,7 @@ export default HomePage;
             <p className="text-lg mb-6">
             Update your index.tsx file to fetch data from your API:
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode01}
             </SyntaxHighlighter>
           </section>
@@ -332,7 +331,7 @@ export default HomePage;
             <p className="text-lg mb-6">
               To get started with Blink, you need to install the library and import it into your components. Below is a simple example of how to use Blink in a React component.
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode1}
             </SyntaxHighlighter>
           </section>
@@ -342,7 +341,7 @@ export default HomePage;
             <p className="text-lg mb-6">
               Blinks can be integrated with Actions to create dynamic and interactive applications. For example, a Blink component can trigger an Action when clicked, enabling real-time updates or interactions.
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {actionsIntegrationCode}
             </SyntaxHighlighter>
           </section>
@@ -364,7 +363,7 @@ export default HomePage;
             <p className="text-lg mb-6">
               Blink supports advanced configuration options that allow you to customize various properties. Here’s an example of how to configure Blink to fit specific needs.
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode2}
             </SyntaxHighlighter>
           </section>
@@ -374,7 +373,7 @@ export default HomePage;
             <p className="text-lg mb-6">
               Adding animations to Blinks can enhance the user experience by providing visual feedback. This example demonstrates how to use Blink with animation.
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode3}
             </SyntaxHighlighter>
           </section>
@@ -384,7 +383,7 @@ export default HomePage;
             <p className="text-lg mb-6">
               You can control the visibility of Blinks based on conditions. Here’s an example of toggling Blink visibility with user interaction.
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode4}
             </SyntaxHighlighter>
           </section>
@@ -394,7 +393,7 @@ export default HomePage;
             <p className="text-lg mb-6">
               Blinks can be styled to be responsive across different screen sizes. This example shows how to apply responsive styles to Blink components.
             </p>
-            <SyntaxHighlighter language="javascript" style={githubDark}>
+            <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode5}
             </SyntaxHighlighter>
           </section>
