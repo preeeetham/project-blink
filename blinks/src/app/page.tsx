@@ -502,7 +502,13 @@ export const POST = async (req: Request) => {
             <h1 className="text-4xl font-bold">
               All You Need To Know About Blink and Actions!!
             </h1>
-            
+            <Image
+              src="/sol.png"
+              alt="Solana Logo"
+              width={48}  // Adjust the width as needed
+              height={48}  // Adjust the height as needed
+              className="text-white"
+            />
           </header>
 
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
