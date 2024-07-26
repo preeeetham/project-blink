@@ -502,7 +502,7 @@ export const POST = async (req: Request) => {
             <h1 className="text-4xl font-bold">
               All You Need To Know About Blink and Actions!!
             </h1>
-            <FaEthereum className="text-white text-4xl" />
+            
           </header>
 
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
