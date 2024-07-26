@@ -15,23 +15,44 @@ export default function Home() {
   `;
 
   const exampleCode00= `
-  // pages/index.tsx
+ import { ActionGetResponse } from '@solana/actions';
 
-  import { Blink } from "@dialectlabs/blinks";
-  import '@dialectlabs/blinks/index.css'; // Import Blink's default styles
+// Define the ActionGetResponse interface
+export interface ActionGetResponse {
+  // URL to the icon image
+  icon: string;
 
-  const HomePage = () => {
-    return (
-      <div>
-        <h1>Welcome to My Blink App</h1>
-        <Blink stylePreset="default" />
-      </div>
-    );
+  // Label for the Blink, typically a short text that describes the purpose or name of the Blink
+  label: string;
+
+  // Description of the Blink, providing more detailed information about what the Blink does
+  description: string;
+
+  // Title of the Blink, used as the main heading or title when displaying the Blink
+  title: string;
+
+  // Links related to the Blink, usually containing actions that users can perform
+  links: {
+    // An array of action objects, each representing a possible action the user can take
+    actions: Array<{
+      // URL for the action, indicating where the user will be directed or what API endpoint will be called
+      href: string;
+
+      // Label for the action button, describing what the action does
+      label: string;
+
+      // (Optional) Array of parameters for dynamic actions, allowing users to input specific data
+      parameters?: Array<{
+        // Name of the parameter, used as the key for the input value
+        name: string;
+
+        // Placeholder or label for the input field, guiding users on what to enter
+        label: string;
+      }>;
+    }>;
   };
-
-  export default HomePage;
-
-  `;
+}
+ `;
 
   const exampleCode000= `
   // actionAdapter.ts
@@ -57,17 +78,51 @@ export default MyActionAdapter;
   `;
 
   const exampleCode1 = `
-  // Example use case 1: Basic usage of Blink
-  import { Blink } from 'blink-library';
+  // pages/api/blink.ts
+import { NextApiRequest, NextApiResponse } from 'next';
+import { ActionGetResponse, ACTIONS_CORS_HEADERS } from '@solana/actions';
 
-  function App() {
-    return (
-      <div>
-        <Blink>Hello, World!</Blink>
-      </div>
-    );
-  }
-  `;
+// GET request handler for Blink metadata
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
+  // Define the response payload according to the ActionGetResponse interface
+  const payload: ActionGetResponse = {
+    icon: , // URL to the icon image
+    label: "Support my project", // Label for the Blink
+    description: "Support my project with SOL using this blink!", // Description of the Blink
+    title: "Support Project - SOL Donation", // Title of the Blink
+    links: {
+      actions: [
+        {
+          href: "/api/actions/donate?amount=0.1", // URL for the action
+          label: "0.1 SOL", // Label for the action button
+        },
+        {
+          href: "/api/actions/donate?amount=0.5", // URL for the action
+          label: "0.5 SOL", // Label for the action button
+        },
+        {
+          href: "/api/actions/donate?amount=1.0", // URL for the action
+          label: "1.0 SOL", // Label for the action button
+        },
+        {
+          href: "/api/actions/donate?amount={amount}", // URL with a dynamic parameter
+          label: "Custom Amount", // Label for the action button
+          parameters: [
+            {
+              name: "amount", // Name of the parameter
+              label: "Enter SOL amount", // Placeholder or label for the input field
+            },
+          ],
+        },
+      ],
+    },
+  };
+
+  // Return the JSON response with appropriate CORS headers
+  res.status(200).json(payload);
+};
+
+export default handler;`
 
   const exampleCode01 = `
   // pages/index.tsx
@@ -101,19 +156,105 @@ const HomePage = () => {
 export default HomePage;
 `
   const exampleCode2 = `
-  // Example use case 2: Advanced Blink configuration
-  import { Blink, configureBlink } from 'blink-library';
+  import { ActionGetResponse } from '@solana/actions';
 
-  configureBlink({ color: 'blue', size: 'large' });
+// Define the advanced ActionGetResponse interface
+export interface AdvancedActionGetResponse extends ActionGetResponse {
+  // Additional metadata about the Blink
+  metadata?: {
+    creator: string; // Creator of the Blink
+    createdAt: string; // Timestamp of when the Blink was created
+  };
 
-  function App() {
-    return (
-      <div>
-        <Blink>Advanced Configuration</Blink>
-      </div>
-    );
-  }
-  `;
+  // Support for multiple languages
+  translations?: {
+    [languageCode: string]: {
+      label: string; // Translated label
+      description: string; // Translated description
+      title: string; // Translated title
+    };
+  };
+
+  // Grouping related actions together
+  actionGroups?: Array<{
+    groupName: string; // Name of the action group
+    actions: Array<{
+      href: string;
+      label: string;
+      parameters?: Array<{
+        name: string;
+        label: string;
+      }>;
+      condition?: {
+        // Condition that determines whether the action should be shown
+        key: string; // Key to check in the context
+        value: any; // Value that the key should have
+      };
+    }>;
+  }>;
+}
+
+// Example usage in an API route
+export const handler = (req: NextApiRequest, res: NextApiResponse) => {
+  // Define the response payload according to the AdvancedActionGetResponse interface
+  const payload: AdvancedActionGetResponse = {
+    icon: //image url,
+    label: "Support my project",
+    description: "Support my project with SOL using this blink!",
+    title: "Support Project - SOL Donation",
+    metadata: {
+      creator: "Your Name",
+      createdAt: new Date().toISOString(),
+    },
+    translations: {
+      es: {
+        label: "Apoya mi proyecto",
+        description: "¡Apoya mi proyecto con SOL usando este blink!",
+        title: "Apoyar Proyecto - Donación de SOL",
+      },
+    },
+    actionGroups: [
+      {
+        groupName: "Donate",
+        actions: [
+          {
+            href: "/api/actions/donate?amount=0.1",
+            label: "0.1 SOL",
+          },
+          {
+            href: "/api/actions/donate?amount=0.5",
+            label: "0.5 SOL",
+          },
+          {
+            href: "/api/actions/donate?amount=1.0",
+            label: "1.0 SOL",
+          },
+          {
+            href: "/api/actions/donate?amount={amount}",
+            label: "Custom Amount",
+            parameters: [
+              {
+                name: "amount",
+                label: "Enter SOL amount",
+              },
+            ],
+            condition: {
+              key: "userRole",
+              value: "supporter", // Only show this action if the user role is 'supporter'
+            },
+          },
+        ],
+      },
+    ],
+  };
+
+  // Return the JSON response with appropriate CORS headers
+  res.status(200).json(payload);
+};
+
+export default handler;
+
+  `
 
   const exampleCode3 = `
   // Example use case 3: Blink with Animation
@@ -155,84 +296,195 @@ export default HomePage;
   `;
 
   const exampleCode5 = `
-  // Example use case 5: Responsive Blink Styling
-  import { Blink } from 'blink-library';
-  import './App.css'; // Assume this file includes responsive styling
+  // components/BlinkComponent.tsx
+import { useEffect, useState } from 'react';
 
-  function App() {
-    return (
-      <div>
-        <Blink className="responsive-blink">Responsive Blink</Blink>
-      </div>
-    );
+interface ActionLink {
+  href: string;
+  label: string;
+  parameters?: Array<{
+    name: string;
+    label: string;
+  }>;
+}
+
+interface ActionGetResponse {
+  icon: string;
+  label: string;
+  description: string;
+  title: string;
+  links: {
+    actions: ActionLink[];
+  };
+}
+
+const BlinkComponent = () => {
+  const [blinkData, setBlinkData] = useState<ActionGetResponse | null>(null);
+
+  // Fetch Blink metadata from the API
+  useEffect(() => {
+    fetch('/api/blink')
+      .then(response => response.json())
+      .then(data => setBlinkData(data))
+      .catch(error => console.error('Error fetching Blink metadata:', error));
+  }, []);
+
+  if (!blinkData) {
+    return <div>Loading...</div>;
   }
-  `;
+
+  return (
+    <div className="p-4 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+      <div className="md:flex">
+        <div className="md:shrink-0">
+          <img className="h-48 w-full object-cover md:h-full md:w-48" src={blinkData.icon} alt={blinkData.label} />
+        </div>
+        <div className="p-8">
+          <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{blinkData.title}</div>
+          <p className="mt-2 text-gray-500">{blinkData.description}</p>
+          <div className="mt-4">
+            {blinkData.links.actions.map((action, index) => (
+              <a key={index} href={action.href} className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
+                {action.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BlinkComponent;
+`
 
   const actionsIntegrationCode = `
-  // Example: Integrating Actions API with Blinks
-  import { Blink } from 'blink-library';
-  import { performAction } from 'actions-library'; // Hypothetical actions library
+  import {
+  ActionGetResponse,
+  ACTIONS_CORS_HEADERS,
+  ActionPostRequest,
+  createPostResponse,
+  ActionPostResponse,
+} from "@solana/actions";
+import {
+  clusterApiUrl,
+  Connection,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+} from "@solana/web3.js";
 
-  function App() {
-    const handleClick = async () => {
-      const result = await performAction('actionName', { key: 'value' });
-      console.log(result);
-    };
+export const GET = async (req: Request) => {
+  const payload: ActionGetResponse = {
+    icon: new URL("/img/nick.jpg", new URL(req.url).origin).toString(),
+    label: "Buy me a coffee",
+    description:
+      "Buy me a coffee with SOL using this super sweet blink of mine :)",
+    title: "Nick Frostbutter - Buy Me a Coffee",
+    links: {
+      actions: [
+        {
+          href: "/api/actions/donate?amount=0.1",
+          label: "0.1 SOL",
+        },
+        {
+          href: "/api/actions/donate?amount=0.5",
+          label: "0.5 SOL",
+        },
+        {
+          href: "/api/actions/donate?amount=1.0",
+          label: "1.0 SOL",
+        },
+        {
+          href: "/api/actions/donate?amount={amount}",
+          label: "Send SOL", // button text
+          parameters: [
+            {
+              name: "amount", // name template literal
+              label: "Enter a SOL amount", // placeholder for the input
+            },
+          ],
+        },
+      ],
+    },
+  };
 
-    return (
-      <div>
-        <Blink onClick={handleClick}>Perform Action</Blink>
-      </div>
+  return Response.json(payload, {
+    headers: ACTIONS_CORS_HEADERS,
+  });
+};
+
+export const OPTIONS = GET;
+
+export const POST = async (req: Request) => {
+  try {
+    const url = new URL(req.url);
+
+    const body: ActionPostRequest = await req.json();
+
+    let account: PublicKey;
+    try {
+      account = new PublicKey(body.account);
+    } catch (err) {
+      throw "Invalid 'account' provided. Its not a real pubkey";
+    }
+
+    let amount: number = 0.1;
+
+    if (url.searchParams.has("amount")) {
+      try {
+        amount = parseFloat(url.searchParams.get("amount") || "0.1") || amount;
+      } catch (err) {
+        throw "Invalid 'amount' input";
+      }
+    }
+
+    const connection = new Connection(clusterApiUrl("devnet"));
+
+    const TO_PUBKEY = new PublicKey(
+      "9FK3BZiGatVrDwVZoMZsJQW24ETAmmzBAGPnJp9jSdtu",
+    );
+
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: account,
+        lamports: amount * LAMPORTS_PER_SOL,
+        toPubkey: TO_PUBKEY,
+      }),
+    );
+    transaction.feePayer = account;
+    transaction.recentBlockhash = (
+      await connection.getLatestBlockhash()
+    ).blockhash;
+
+    const payload: ActionPostResponse = await createPostResponse({
+      fields: {
+        transaction,
+        message: "Thanks for the coffee fren :)",
+      },
+    });
+
+    return Response.json(payload, {
+      headers: ACTIONS_CORS_HEADERS,
+    });
+  } catch (err) {
+    let message = "An unknown error occurred";
+    if (typeof err == "string") message = err;
+
+    return Response.json(
+      {
+        message,
+      },
+      {
+        headers: ACTIONS_CORS_HEADERS,
+      },
     );
   }
-  `;
+};`
 
-  const extraordinaryUseCase1 = `
-  // Example: Blinks in Real-Time Data Visualization
-  import { Blink } from 'blink-library';
-  import { useEffect, useState } from 'react';
-
-  function RealTimeData() {
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        fetch('/api/data')
-          .then(response => response.json())
-          .then(data => setData(data));
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }, []);
-
-    return (
-      <div>
-        <Blink>{data ? JSON.stringify(data) : 'Loading data...'}</Blink>
-      </div>
-    );
-  }
-  `;
-
-  const extraordinaryUseCase2 = `
-  // Example: Blinks for Dynamic Content Management
-  import { Blink } from 'blink-library';
-  import { useState } from 'react';
-
-  function DynamicContent() {
-    const [content, setContent] = useState('Initial Content');
-
-    const updateContent = () => {
-      setContent('Updated Content');
-    };
-
-    return (
-      <div>
-        <Blink>{content}</Blink>
-        <button onClick={updateContent}>Update Content</button>
-      </div>
-    );
-  }
-  `;
+  
+  
 
   const guiImageUrl = 'https://www.dialect.to/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fblinks-are-the-actions-interface.ee1e84df.png&w=3840&q=75';
   const apiImageUrl = 'https://www.dialect.to/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Factions-are-api-code.62b32555.png&w=1200&q=75';
@@ -349,9 +601,9 @@ export default HomePage;
           </section>
 
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
-            <h2 className="text-2xl font-bold mb-6">Integrating Blinks with Actions</h2>
+            <h2 className="text-2xl font-bold mb-6">Donations on Blinks!!</h2>
             <p className="text-lg mb-6">
-              Blinks can be integrated with Actions to create dynamic and interactive applications. For example, a Blink component can trigger an Action when clicked, enabling real-time updates or interactions.
+              One of the main use cases that blinks are used rightnow are in donations. And here is a example!
             </p>
             <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {actionsIntegrationCode}
@@ -373,7 +625,7 @@ export default HomePage;
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-2xl font-bold mb-6">Advanced Configuration</h2>
             <p className="text-lg mb-6">
-              Blink supports advanced configuration options that allow you to customize various properties. Here’s an example of how to configure Blink to fit specific needs.
+            An advanced configuration for the ActionGetResponse interface can include additional features like conditional actions, action grouping, metadata, and multi-language support
             </p>
             <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode2}
@@ -403,7 +655,7 @@ export default HomePage;
           <section className="bg-gray-800 bg-opacity-90 p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-2xl font-bold mb-6">Responsive Blink Styling</h2>
             <p className="text-lg mb-6">
-              Blinks can be styled to be responsive across different screen sizes. This example shows how to apply responsive styles to Blink components.
+            To create a responsive Blink component with proper styling, we can use Tailwind CSS along with React. This snippet will include a responsive layout for the Blink component, ensuring it looks good on various screen sizes.
             </p>
             <SyntaxHighlighter language="javascript" style={gruvboxDark}>
               {exampleCode5}
